@@ -7,9 +7,9 @@ import {
   Zap,
   MapPin,
   ArrowLeft,
-  Trash2,
   Eye,
 } from "lucide-react";
+import TechniquesManager from "./techniques-manager";
 
 export default async function AdminPage() {
   const supabase = await createClient();
@@ -19,18 +19,14 @@ export default async function AdminPage() {
 
   if (!user) redirect("/login");
 
-  // Check admin role
   const { data: currentProfile } = await supabase
     .from("profiles")
     .select("role")
     .eq("id", user.id)
     .single();
 
-  if (currentProfile?.role !== "admin") {
-    redirect("/dashboard");
-  }
+  if (currentProfile?.role !== "admin") redirect("/dashboard");
 
-  // Stats
   const [profilesRes, techniquesRes, ptRes] = await Promise.all([
     supabase.from("profiles").select("id, nome, email_contato, estado, cidade, role, created_at").order("created_at", { ascending: false }),
     supabase.from("techniques").select("*").order("nome"),
@@ -45,7 +41,6 @@ export default async function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-neuro-50/50 to-white">
-      {/* Header */}
       <header className="fixed top-0 z-50 w-full bg-white border-b border-neuro-200 shadow-sm">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href="/dashboard" className="flex items-center gap-2 text-sm text-neuro-500 hover:text-neuro-700 transition-colors">
@@ -67,13 +62,13 @@ export default async function AdminPage() {
           Gerencie usuários, técnicas e monitore a plataforma
         </p>
 
-        {/* Stats Cards */}
+        {/* Stats */}
         <div className="animate-slide-up delay-200 mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { icon: Users, label: "Usuários", value: profiles.length, color: "text-blue-600 bg-blue-50 border-blue-100" },
-            { icon: Users, label: "Perfis Completos", value: completedProfiles, color: "text-emerald-600 bg-emerald-50 border-emerald-100" },
-            { icon: Zap, label: "Com Técnicas", value: totalWithTechniques, color: "text-violet-600 bg-violet-50 border-violet-100" },
-            { icon: MapPin, label: "Estados", value: statesSet.size, color: "text-amber-600 bg-amber-50 border-amber-100" },
+            { icon: Users, label: "Usuários", value: profiles.length, color: "text-emerald-700 bg-emerald-50 border-emerald-100" },
+            { icon: Users, label: "Perfis Completos", value: completedProfiles, color: "text-green-700 bg-green-50 border-green-100" },
+            { icon: Zap, label: "Com Técnicas", value: totalWithTechniques, color: "text-amber-700 bg-amber-50 border-amber-100" },
+            { icon: MapPin, label: "Estados", value: statesSet.size, color: "text-orange-700 bg-orange-50 border-orange-100" },
           ].map((stat) => (
             <div key={stat.label} className={`flex items-center gap-3 rounded-xl border p-4 ${stat.color}`}>
               <stat.icon className="h-5 w-5" />
@@ -85,13 +80,13 @@ export default async function AdminPage() {
           ))}
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
+        <div className="grid gap-6 lg:grid-cols-[1fr_400px]">
           {/* Users Table */}
           <div className="animate-slide-up delay-300 rounded-2xl border border-neuro-100 bg-white overflow-hidden">
             <div className="border-b border-neuro-50 px-6 py-4">
               <h2 className="font-semibold text-neuro-900">Usuários ({profiles.length})</h2>
             </div>
-            <div className="divide-y divide-neuro-50">
+            <div className="divide-y divide-neuro-50 max-h-[600px] overflow-y-auto">
               {profiles.map((profile) => (
                 <div key={profile.id} className="flex items-center justify-between px-6 py-3 hover:bg-neuro-50/50 transition-colors">
                   <div className="min-w-0 flex-1">
@@ -125,26 +120,10 @@ export default async function AdminPage() {
             </div>
           </div>
 
-          {/* Techniques Management */}
+          {/* Techniques Manager + Quick Actions */}
           <div className="space-y-4">
-            <div className="animate-slide-up delay-400 rounded-2xl border border-neuro-100 bg-white p-6">
-              <h2 className="mb-4 font-semibold text-neuro-900">Técnicas ({techniques.length})</h2>
-              <div className="space-y-2">
-                {techniques.map((tech) => (
-                  <div
-                    key={tech.id}
-                    className="flex items-center justify-between rounded-xl border border-neuro-100 p-3 text-sm"
-                  >
-                    <span className="font-medium text-neuro-700 leading-tight">{tech.nome}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-4 text-xs text-neuro-400">
-                Em breve: criar, editar e remover técnicas.
-              </p>
-            </div>
+            <TechniquesManager techniques={techniques} />
 
-            {/* Quick actions */}
             <div className="animate-slide-up delay-500 rounded-2xl border border-neuro-100 bg-white p-6">
               <h2 className="mb-4 font-semibold text-neuro-900">Ações Rápidas</h2>
               <div className="space-y-2">
