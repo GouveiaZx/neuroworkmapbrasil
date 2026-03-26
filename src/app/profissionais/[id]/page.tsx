@@ -59,9 +59,6 @@ export default async function ProfilePage({
             <Link href="/login">
               <Button variant="ghost" size="sm" className="text-neuro-700 hover:text-neuro-900 hover:bg-neuro-100">Entrar</Button>
             </Link>
-            <Link href="/cadastro">
-              <Button className="h-10 px-6 text-sm font-semibold rounded-lg bg-gradient-to-r from-gold-500 to-gold-600 text-white gold-glow hover:from-gold-600 hover:to-gold-700 transition-all duration-300 uppercase tracking-wide">Cadastrar</Button>
-            </Link>
           </div>
         </div>
       </nav>

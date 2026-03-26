@@ -41,13 +41,6 @@ function Navbar() {
               Entrar
             </Button>
           </Link>
-          <Link href="/cadastro">
-            <Button
-              className="h-10 px-6 text-sm font-semibold rounded-lg bg-gradient-to-r from-gold-500 to-gold-600 text-white gold-glow hover:from-gold-600 hover:to-gold-700 transition-all duration-300 uppercase tracking-wide"
-            >
-              Cadastrar
-            </Button>
-          </Link>
         </div>
       </div>
     </nav>
@@ -98,22 +91,13 @@ function HeroSection() {
         </p>
 
         {/* CTA */}
-        <div className="animate-slide-up delay-300 flex flex-wrap items-center justify-center gap-4">
-          <Link href="/cadastro">
-            <Button
-              size="lg"
-              className="h-14 rounded-lg px-10 text-base font-semibold uppercase tracking-wide bg-gradient-to-r from-gold-500 to-gold-600 text-white gold-glow hover:from-gold-600 hover:to-gold-700 transition-all duration-300"
-            >
-              Criar meu perfil
-            </Button>
-          </Link>
+        <div className="animate-slide-up delay-300">
           <Link href="/mapa">
             <Button
-              variant="outline"
               size="lg"
-              className="h-14 rounded-lg px-10 text-base font-semibold border-2 border-gold-400/60 text-gold-300 bg-white/10 hover:bg-white/20 hover:border-gold-400 backdrop-blur-sm transition-all duration-300"
+              className="h-14 rounded-lg px-12 text-base font-semibold uppercase tracking-wide bg-gradient-to-r from-gold-500 to-gold-600 text-white gold-glow hover:from-gold-600 hover:to-gold-700 transition-all duration-300"
             >
-              <MapPin className="mr-2 h-4 w-4" />
+              <MapPin className="mr-2 h-5 w-5" />
               Buscar profissionais
             </Button>
           </Link>
@@ -256,35 +240,18 @@ function TechniquesSection() {
 
 function CTASection() {
   return (
-    <section className="relative overflow-hidden border-t border-neuro-100 bg-gradient-to-br from-neuro-700 via-neuro-800 to-neuro-900 py-28">
-      {/* Subtle background glow */}
+    <section className="relative overflow-hidden border-t border-neuro-100 bg-gradient-to-br from-neuro-700 via-neuro-800 to-neuro-900 py-20">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-neuro-500/10 blur-3xl" />
-
       <div className="relative mx-auto max-w-3xl px-6 text-center">
-        {/* White logo */}
-        <div className="mb-8 flex justify-center">
-          <img
-            src="/images/marca.webp"
-            alt="Neurowork"
-            className="h-8"
-          />
+        <div className="mb-6 flex justify-center">
+          <img src="/images/marca.webp" alt="Neurowork" className="h-8" />
         </div>
-
-        <h2 className="heading-display mb-5 text-3xl text-white sm:text-4xl lg:text-5xl">
-          É profissional de neurofeedback?
+        <h2 className="heading-display mb-4 text-2xl text-white sm:text-3xl">
+          Tecnologias aplicadas à saúde e educação
         </h2>
-        <p className="mb-10 text-lg text-neuro-200/80">
-          Crie seu perfil gratuitamente e seja encontrado por pacientes em todo o
-          Brasil.
+        <p className="text-neuro-200/70">
+          Referência em neurociência aplicada no Brasil.
         </p>
-        <Link href="/cadastro">
-          <Button
-            size="lg"
-            className="h-13 rounded-lg px-10 text-sm font-semibold uppercase tracking-wider bg-gradient-to-r from-gold-500 to-gold-600 text-white gold-glow hover:from-gold-600 hover:to-gold-700 transition-all duration-300"
-          >
-            Criar meu perfil agora
-          </Button>
-        </Link>
       </div>
     </section>
   );
